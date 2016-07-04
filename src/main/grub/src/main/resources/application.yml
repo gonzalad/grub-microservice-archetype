@@ -1,0 +1,55 @@
+spring:
+  application:
+    name: ${applicationName}
+
+server:
+  port: ${port:9086}
+
+logging:
+  level: 
+#    ROOT: DEBUG
+#    org.flywaydb: DEBUG
+
+
+security:
+  basic:
+    enabled: false
+    
+---
+
+spring:
+  profiles: security
+
+security-filter:
+  enabled: true
+  allow-selfsigned: true
+  keystore-name: oidc.jks
+  keystore-password: password
+  keystore-certificate-name: alice
+  keystore-issuer: alice
+  remote-validation-url: http://${oidc.host:localhost}:${oidc.port:9080}/oidc/jwk/keys
+
+security:
+  oauth2:
+    client:
+      clientId: Qy_CZF_jlgkgbg
+      clientSecret: DV-PO3j7znIUvP7I4V1PSw
+      authorized-grant-types: authorization_code
+      scope: openid
+      token-name: code
+      access-token-uri: http://${oidc.host:localhost}:${oidc.port:9080}/oidc/oauth2/token
+      user-authorization-uri: http://${oidc.host:localhost}:${oidc.port:9080}/oidc/idp/authorize
+      use-current-uri: false
+      enable-csrf: false
+      authenticationRequired: false
+
+---
+
+# activated via VM argument -Dspring.profiles.active=docker
+
+spring:
+  profiles: docker
+  include: security
+
+server:
+  port: 8080

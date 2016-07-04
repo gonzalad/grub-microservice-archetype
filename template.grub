@@ -1,0 +1,41 @@
+parameters {
+	packageName {
+		description = "The name of the package"
+		defaultValue = "com.example.grub"
+	}
+	packageDir {
+		value = { packageName.replaceAll(/\./, '/') }
+	}
+	applicationName {
+		description = "The name of your application"
+		defaultValue = "Helloworld";
+	}
+	gradleVersion {
+		description = "The Gradle wrapper version"
+		defaultValue = "2.14"
+	}
+}
+
+generate {
+	doLast {
+		// The user will want Git
+		exec { commandLine "git", "init" }
+
+		// Generate the wrapper when we are done
+		exec { commandLine "gradle", "wrapper" }
+
+		// Show some nice message
+		println """
+Your application has been created.
+
+	* package name: ${packageName}
+	* application name: ${applicationName}
+	* gradle version: ${gradleVersion}
+
+You can now run the application:
+
+	\$ cd ${projectDir}
+	\$ ./gradlew run
+"""
+	}
+}
