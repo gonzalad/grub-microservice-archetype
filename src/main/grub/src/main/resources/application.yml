@@ -1,9 +1,9 @@
 spring:
   application:
-    name: ${applicationName}
+    name: ${projectDir}
 
 server:
-  port: ${port:9086}
+  port: \${port:8080}
 
 logging:
   level: 
@@ -27,7 +27,7 @@ security-filter:
   keystore-password: password
   keystore-certificate-name: alice
   keystore-issuer: alice
-  remote-validation-url: http://${oidc.host:localhost}:${oidc.port:9080}/oidc/jwk/keys
+  remote-validation-url: http://\${oidc.host:localhost}:\${oidc.port:9080}/oidc/jwk/keys
 
 security:
   oauth2:
@@ -37,8 +37,8 @@ security:
       authorized-grant-types: authorization_code
       scope: openid
       token-name: code
-      access-token-uri: http://${oidc.host:localhost}:${oidc.port:9080}/oidc/oauth2/token
-      user-authorization-uri: http://${oidc.host:localhost}:${oidc.port:9080}/oidc/idp/authorize
+      access-token-uri: http://\${oidc.host:localhost}:\${oidc.port:9080}/oidc/oauth2/token
+      user-authorization-uri: http://\${oidc.host:localhost}:\${oidc.port:9080}/oidc/idp/authorize
       use-current-uri: false
       enable-csrf: false
       authenticationRequired: false

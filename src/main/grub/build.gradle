@@ -7,7 +7,13 @@ buildscript {
     }
 }
 
+repositories {
+    mavenLocal()
+    mavenCentral()
+}
+
 apply plugin: 'java'
+apply plugin: 'groovy'
 apply plugin: 'spring-boot'
 apply plugin: 'eclipse'
 apply plugin: 'idea'
@@ -33,6 +39,7 @@ jar { version = '0.1.0-SNAPSHOT' }
 dependencies {
     compile('org.springframework.boot:spring-boot-starter-web')
     runtime('org.springframework.boot:spring-boot-starter-actuator')
+    compile('org.springframework:spring-tx')
     testCompile('org.springframework.boot:spring-boot-starter-test')
 
     // needed for logging module (see https://in.talend.com/13997111)
@@ -41,12 +48,12 @@ dependencies {
     // needed for security module
     compile ('org.talend.iam:security-filter:1-+')
 
-    compile "io.springfox:springfox-swagger-ui:$springfoxSwaggerVersion"
-    compile "io.springfox:springfox-swagger2:$springfoxSwaggerVersion"
-    testCompile("io.rest-assured:rest-assured:$restAssuredVersion")
-    testCompile("io.rest-assured:json-path:$restAssuredVersion")
-    testCompile("io.rest-assured:spring-mock-mvc:$restAssuredVersion")
-    testCompile("uk.co.datumedge:hamcrest-json:$hamcrestVersion")
+    compile "io.springfox:springfox-swagger-ui:\$springfoxSwaggerVersion"
+    compile "io.springfox:springfox-swagger2:\$springfoxSwaggerVersion"
+    testCompile("io.rest-assured:rest-assured:\$restAssuredVersion")
+    testCompile("io.rest-assured:json-path:\$restAssuredVersion")
+    testCompile("io.rest-assured:spring-mock-mvc:\$restAssuredVersion")
+    testCompile("uk.co.datumedge:hamcrest-json:\$hamcrestVersion")
 }
 
 docker { maintainer = 'Talend' }

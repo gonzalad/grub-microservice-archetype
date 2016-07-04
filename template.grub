@@ -6,10 +6,6 @@ parameters {
 	packageDir {
 		value = { packageName.replaceAll(/\./, '/') }
 	}
-	applicationName {
-		description = "The name of your application"
-		defaultValue = "Helloworld";
-	}
 	gradleVersion {
 		description = "The Gradle wrapper version"
 		defaultValue = "2.14"
@@ -29,7 +25,6 @@ generate {
 Your application has been created.
 
 	* package name: ${packageName}
-	* application name: ${applicationName}
 	* gradle version: ${gradleVersion}
 
 You can now run the application:
